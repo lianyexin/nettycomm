@@ -4,6 +4,7 @@ import com.wstone.pojo.DataPojo;
 import com.wstone.utils.Params;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
@@ -22,6 +23,7 @@ public class ServerInHandler extends ChannelInboundHandlerAdapter {
         log.info("length:" + myProtocolBean.getLength());
         log.info("date  :" + myProtocolBean.getData());
         log.info("----------------------------------------");
+        ReferenceCountUtil.release(msg);
     }
 
     @Override
