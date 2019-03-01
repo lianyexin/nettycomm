@@ -38,10 +38,17 @@ public class ServerInHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        InetSocketAddress insocket = (InetSocketAddress) ctx.channel().remoteAddress();
+        String ip = insocket.getAddress().getHostAddress();
+        log.info("client["+ip+"] is disconnected");
+    }
+
+    @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         super.exceptionCaught(ctx, cause);
         InetSocketAddress insocket = (InetSocketAddress) ctx.channel().remoteAddress();
         String ip = insocket.getAddress().getHostAddress();
-        log.info("client["+ip+"] is disconnected");
+        log.info("client["+ip+"] is error");
     }
 }

@@ -6,6 +6,8 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.InetSocketAddress;
+
 /**
  * Created by shiwei on 2019/3/1.
  */
@@ -30,5 +32,12 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
         DataPojo dataPojo = new DataPojo((short)0x6868,(short)4,2.4f);
         ctx.channel().writeAndFlush(dataPojo);
 
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        InetSocketAddress insocket = (InetSocketAddress) ctx.channel().remoteAddress();
+        String ip = insocket.getAddress().getHostAddress();
+        log.info("server["+ip+"] is disconnected");
     }
 }

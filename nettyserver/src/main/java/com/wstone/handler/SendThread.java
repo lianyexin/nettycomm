@@ -17,11 +17,16 @@ public class SendThread extends Thread {
         try {
 
             int i = 0;
-
+            Channel channel = null;
             while (true) {
                 Thread.sleep(10 * 1000);
                 log.info("RUN METHODS:"+i);
-                Channel channel = Params.map.get("127.0.0.1");
+
+                if(Params.map.containsKey("127.0.0.1")) {
+                    channel = Params.map.get("127.0.0.1");
+                }else{
+                    continue;
+                }
                 if(channel == null || !channel.isActive()){
                     continue;
                 }
