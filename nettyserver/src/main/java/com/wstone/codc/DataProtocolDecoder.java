@@ -35,10 +35,25 @@ public class DataProtocolDecoder extends LengthFieldBasedFrameDecoder {
         }else {
             log.info("无法识别数据");
         }
+
+        in.markReaderIndex();
+        int i = in.readableBytes();
+        log.info("CONTEXT SIZE IS :"+i);
+
         //读取length字段
         int length = in.readUnsignedShort();
         // 处理数据
         float data = in.readFloat();
+
+        in.resetReaderIndex();
+        int j = in.readableBytes();
+        log.info("RESET CONTEXT SIZE IS :"+j);
+        //读取length字段
+        int length1 = in.readUnsignedShort();
+        // 处理数据
+        float data1 = in.readFloat();
+        log.info("New len :"+length1);
+        log.info("New data :"+data1);
 
         DataPojo dataPojo = new DataPojo((short)header,(short)length,data);
 

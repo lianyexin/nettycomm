@@ -18,7 +18,7 @@ public class ServerStarter implements ApplicationListener<ApplicationReadyEvent>
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-            new SendThread().start();
+            //new SendThread().start();
             server.start(51);
 
 
